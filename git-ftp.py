@@ -51,7 +51,7 @@ from distutils.version import LooseVersion
 from git import __version__ as git_version
 
 if LooseVersion(git_version) < '0.3.0':
-    print 'git-ftp requires git-python 0.3.0 or newer; %s provided.' % git_version
+    print 'git-ftp requires git-python 0.3.0 or newer; {0!s} provided.'.format(git_version)
     exit(1)
 
 from git import Blob, Repo, Git, Submodule
@@ -242,7 +242,7 @@ def configure_logging(options):
 
 
 def format_mode(mode):
-    return "%o" % (mode & 0o777)
+    return "{0:o}".format((mode & 0o777))
 
 
 class FtpData():
@@ -286,7 +286,7 @@ def get_ftp_creds(repo, options):
                                         "Take a look at the README for more information")
             else:
                 raise SectionNotFound("Your .git/ftpdata file does not contain a section " +
-                                     "named '%s'" % options.section)
+                                     "named '{0!s}'".format(options.section))
 
         # just in case you do not want to store your ftp password.
         try:
@@ -307,7 +307,7 @@ def get_ftp_creds(repo, options):
         except ConfigParser.NoOptionError:
             options.ftp.gitftpignore = '.gitftpignore'
     else:
-        print "Please configure settings for branch '%s'" % options.section
+        print "Please configure settings for branch '{0!s}'".format(options.section)
         options.ftp.username = raw_input('FTP Username: ')
         options.ftp.password = getpass.getpass('FTP Password: ')
         options.ftp.hostname = raw_input('FTP Hostname: ')
